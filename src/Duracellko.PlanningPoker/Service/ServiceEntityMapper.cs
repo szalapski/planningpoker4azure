@@ -233,6 +233,7 @@ internal static class ServiceEntityMapper
             D.MessageType.EstimationStarted => MessageType.EstimationStarted,
             D.MessageType.EstimationEnded => MessageType.EstimationEnded,
             D.MessageType.EstimationCanceled => MessageType.EstimationCanceled,
+            D.MessageType.EstimatesRevealed => MessageType.EstimatesRevealed,
             D.MessageType.MemberEstimated => MessageType.MemberEstimated,
             D.MessageType.AvailableEstimationsChanged => MessageType.AvailableEstimationsChanged,
             D.MessageType.TimerStarted => MessageType.TimerStarted,

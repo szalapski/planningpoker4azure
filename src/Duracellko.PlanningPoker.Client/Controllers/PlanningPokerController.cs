@@ -433,6 +433,21 @@ public sealed class PlanningPokerController : IPlanningPokerInitializer, INotify
     }
 
     /// <summary>
+    /// Reveals estimates, likely before all have voted, by Scrum Master.
+    /// </summary>
+    /// <returns><see cref="Task"/> representing asynchronous operation.</returns>
+    public async Task RevealEstimates()
+    {
+        if (CanCancelEstimation)
+        {
+            using (_busyIndicator.Show())
+            {
+                await _planningPokerService.CancelEstimation(TeamName!, CancellationToken.None);
+            }
+        }
+    }
+
+    /// <summary>
     /// Stops estimation by Scrum Master.
     /// </summary>
     /// <returns><see cref="Task"/> representing asynchronous operation.</returns>
@@ -607,6 +622,9 @@ public sealed class PlanningPokerController : IPlanningPokerInitializer, INotify
             case MessageType.EstimationEnded:
                 OnEstimationEnded((EstimationResultMessage)message);
                 break;
+            case MessageType.EstimatesRevealed:
+                OnEstimatesRevealed();
+                break;
             case MessageType.EstimationCanceled:
                 OnEstimationCanceled();
                 break;
@@ -704,6 +722,16 @@ public sealed class PlanningPokerController : IPlanningPokerInitializer, INotify
         _memberEstimations = GetMemberEstimationList(message.EstimationResult);
         EstimationSummary = null;
         ScrumTeam.State = TeamState.EstimationFinished;
+    }
+
+    private void OnEstimatesRevealed()
+    {
+        if (ScrumTeam == null)
+        {
+            return;
+        }
+
+        ScrumTeam.State = TeamState.EstimatesRevealed;
     }
 
     private void OnEstimationCanceled()

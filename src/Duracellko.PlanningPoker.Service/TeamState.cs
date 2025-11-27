@@ -21,6 +21,11 @@ public enum TeamState
     EstimationFinished,
 
     /// <summary>
+    /// Estimation was revealed, likely before all have voted, by Scrum Master.
+    /// </summary>
+    EstimatesRevealed,
+
+    /// <summary>
     /// Estimation was canceled by Scrum master.
     /// </summary>
     EstimationCanceled

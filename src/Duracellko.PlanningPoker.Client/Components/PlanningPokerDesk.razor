@@ -34,6 +34,12 @@
 
                 @if (Controller.CanCancelEstimation)
                 {
+
+                    <button type="button" @onclick="RevealEstimatesCommand" class="btn btn-secondary col-md-auto me-3">
+                        <span class="oi oi-media-stop me-1" aria-hidden="true"></span>
+                        @UIResources.PlanningPokerDesk_RevealEstimatesButton
+                    </button>
+
                     <button type="button" @onclick="CancelEstimationCommand" class="btn btn-secondary col-md-auto me-3">
                         <span class="oi oi-media-stop me-1" aria-hidden="true"></span>
                         @UIResources.PlanningPokerDesk_CancelEstimationButton
@@ -188,6 +194,10 @@
         return TryRun(() => Controller.StartEstimation());
     }
 
+    private Task RevealEstimatesCommand()
+    {
+        return TryRun(() => Controller.RevealEstimates());
+    }
     private Task CancelEstimationCommand()
     {
         return TryRun(() => Controller.CancelEstimation());

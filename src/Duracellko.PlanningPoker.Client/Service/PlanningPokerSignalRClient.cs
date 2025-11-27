@@ -128,6 +128,23 @@ public sealed class PlanningPokerSignalRClient : IPlanningPokerClient, IDisposab
     }
 
     /// <summary>
+    /// Signal from Scrum master to reveal the estimates, likely before all have voted.
+    /// </summary>
+    /// <param name="teamName">Name of the Scrum team.</param>
+    /// <param name="cancellationToken">The cancellation token to cancel operation.</param>
+    /// <returns>
+    /// Asynchronous operation.
+    /// </returns>
+    public Task RevealEstimates(string teamName, CancellationToken cancellationToken)
+    {
+        return InvokeOperation(async () =>
+        {
+            var hubConnection = await EnsureConnected(cancellationToken);
+            await hubConnection.InvokeAsync("RevealEstimates", teamName, cancellationToken);
+        });
+    }
+
+    /// <summary>
     /// Signal from Scrum master to cancel the estimation.
     /// </summary>
     /// <param name="teamName">Name of the Scrum team.</param>

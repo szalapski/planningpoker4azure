@@ -273,6 +273,9 @@
   <data name="PlanningPokerDesk_PickEstimationLabel" xml:space="preserve">
     <value>Pick estimation</value>
   </data>
+  <data name="PlanningPokerDesk_RevealEstimatesButton" xml:space="preserve">
+    <value>Reveal estimates</value>
+  </data>
   <data name="PlanningPokerDesk_SelectedEstimatesLabel" xml:space="preserve">
     <value>Selected estimates</value>
   </data>

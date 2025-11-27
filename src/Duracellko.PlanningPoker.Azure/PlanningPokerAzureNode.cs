@@ -314,6 +314,9 @@ public class PlanningPokerAzureNode : IDisposable
                     case MessageType.EstimationStarted:
                         OnEstimationStartedMessage(message.TeamName);
                         break;
+                    case MessageType.EstimatesRevealed:
+                        OnEstimatesRevealedMessage(message.TeamName);
+                        break;
                     case MessageType.EstimationCanceled:
                         OnEstimationCanceledMessage(message.TeamName);
                         break;
@@ -384,6 +387,22 @@ public class PlanningPokerAzureNode : IDisposable
         {
             _processingScrumTeamName = team.Name;
             team.ScrumMaster?.StartEstimation();
+        }
+        finally
+        {
+            _processingScrumTeamName = null;
+        }
+    }
+
+    private void OnEstimatesRevealedMessage(string teamName)
+    {
+        using var teamLock = PlanningPoker.GetScrumTeam(teamName);
+        teamLock.Lock();
+        var team = teamLock.Team;
+        try
+        {
+            _processingScrumTeamName = team.Name;
+            team.ScrumMaster?.RevealEstimates();
         }
         finally
         {

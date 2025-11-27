@@ -332,7 +332,7 @@ public class ScrumTeam
         var lastInactivityTime = DateTimeProvider.UtcNow - inactivityTime;
         bool IsObserverInactive(Observer observer) => observer.LastActivity < lastInactivityTime && !observer.IsDormant;
         var inactiveObservers = Observers.Where(IsObserverInactive).ToList();
-        var inactiveMembers = Members.Where<Member>(IsObserverInactive).ToList();
+        var inactiveMembers = Members.Where(IsObserverInactive).ToList();
 
         if (inactiveObservers.Count > 0 || inactiveMembers.Count > 0)
         {
@@ -393,6 +393,18 @@ public class ScrumTeam
 
         var recipients = UnionMembersAndObservers();
         SendMessage(recipients, () => new Message(MessageType.EstimationStarted));
+    }
+
+    /// <summary>
+    /// Reveals current estimates, likely before all have voted.
+    /// </summary>
+    internal void RevealEstimates()
+    {
+        State = TeamState.EstimatesRevealed;
+        _estimationResult = null;
+
+        var recipients = UnionMembersAndObservers();
+        SendMessage(recipients, () => new Message(MessageType.EstimationCanceled));
     }
 
     /// <summary>

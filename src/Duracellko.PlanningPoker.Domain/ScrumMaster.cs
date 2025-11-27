@@ -43,6 +43,17 @@ public class ScrumMaster : Member
     /// <summary>
     /// Cancels current estimation.
     /// </summary>
+    public void RevealEstimates()
+    {
+        if (Team.State == TeamState.EstimationInProgress)
+        {
+            Team.RevealEstimates();
+        }
+    }
+
+    /// <summary>
+    /// Cancels current estimation.
+    /// </summary>
     public void CancelEstimation()
     {
         if (Team.State == TeamState.EstimationInProgress)

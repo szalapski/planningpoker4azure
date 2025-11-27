@@ -127,6 +127,22 @@ public class PlanningPokerClient : IPlanningPokerClient
     }
 
     /// <summary>
+    /// Signal from Scrum master to reveal the estimates, likely before all have voted.
+    /// </summary>
+    /// <param name="teamName">Name of the Scrum team.</param>
+    /// <param name="cancellationToken">The cancellation token to cancel operation.</param>
+    /// <returns>
+    /// Asynchronous operation.
+    /// </returns>
+    public Task RevealEstimates(string teamName, CancellationToken cancellationToken)
+    {
+        var encodedTeamName = _urlEncoder.Encode(teamName);
+        var uri = $"RevealEstimates?teamName={encodedTeamName}";
+
+        return SendAsync(uri, cancellationToken);
+    }
+
+    /// <summary>
     /// Signal from Scrum master to cancel the estimation.
     /// </summary>
     /// <param name="teamName">Name of the Scrum team.</param>

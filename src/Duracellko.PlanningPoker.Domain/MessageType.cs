@@ -31,6 +31,11 @@ public enum MessageType
     EstimationEnded,
 
     /// <summary>
+    /// Message specifies that estimates were revealed (liekly before all have voted) by Scrum Master.
+    /// </summary>
+    EstimatesRevealed,
+
+    /// <summary>
     /// Message specifies that estimation was canceled by Scrum master.
     /// </summary>
     EstimationCanceled,
